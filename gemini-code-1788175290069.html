@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial Interativo - NotebookLM</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+    
+    body, html { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+    /* Container da Imagem de Fundo */
+    .screen-container {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Película Escura Geral */
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 10;
+    }
+
+    /* Foco Iluminado (Spotlight) */
+    .spotlight {
+      position: absolute;
+      border-radius: 50%;
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45), 0 0 25px 5px #fff;
+      z-index: 20;
+      transition: all 0.4s ease;
+      pointer-events: none;
+    }
+
+    /* Balão do Tutorial (Tooltip) */
+    .tooltip {
+      position: absolute;
+      z-index: 30;
+      background: #ffffff;
+      color: #1a1a1a;
+      padding: 18px 22px;
+      border-radius: 12px;
+      max-width: 320px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .tooltip h3 { margin-bottom: 8px; font-size: 18px; color: #0f52ba; }
+    .tooltip p { font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
+
+    .btn-next {
+      background: #0f52ba;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app-screen" class="screen-container"></div>
+  
+  <div id="spotlight" class="spotlight"></div>
+
+  <div id="tooltip" class="tooltip">
+    <h3 id="step-title"></h3>
+    <p id="step-desc"></p>
+    <button class="btn-next" onclick="nextStep()">Entendi / Próximo</button>
+  </div>
+
+  <script>
+    // Configuração dos Passos
+    // Obs: Substitua os nomes dos arquivos pelas suas imagens locais
+    const steps = [
+      {
+        image: 'passo_1.png',
+        title: 'Passo 1: Fechar o Aviso',
+        desc: 'Para começar a usar, clique no botão azul "OK" no centro da tela para fechar a mensagem de boas-vindas.',
+        // Posição percentual do botão OK na Imagem 1
+        spotlight: { top: '67%', left: '63.9%', width: '65px', height: '40px' },
+        tooltip: { top: '55%', left: '70%' }
+      },
+      {
+        image: 'passo_2.png',
+        title: 'Passo 2: Enviar Documentos',
+        desc: 'Clique no botão "Enviar arquivos" para escolher os documentos no seu computador ou arraste o arquivo direto para esta área.',
+        // Posição percentual do botão Enviar Arquivos na Imagem 2
+        spotlight: { top: '66.1%', left: '31.5%', width: '140px', height: '45px' },
+        tooltip: { top: '50%', left: '38%' }
+      },
+      {
+        image: 'passo_3.png',
+        title: 'Passo 3: Perguntar aos Documentos',
+        desc: 'Clique no campo para digitar sua pergunta',
+        // Posição percentual do botão Enviar Arquivos na Imagem 2
+        spotlight: { top: '89.1%', left: '28.5%', width: '650px', height: '65px' },
+        tooltip: { top: '67%', left: '52%' }
+      },
+      {
+        image: 'passo_3.png',
+        title: 'Passo 4: Enviar Pergunta',
+        desc: 'Clique no botão "->" Para enviar sua pergunta.',
+        // Posição percentual do botão Enviar Arquivos na Imagem 2
+        spotlight: { top: '90.8%', left: '69.5%', width: '50px', height: '40px' },
+        tooltip: { top: '70%', left: '57%' }
+      },
+    ];
+
+    let currentStep = 0;
+
+    function renderStep() {
+      const step = steps[currentStep];
+      
+      // Atualiza Imagem de Fundo
+      document.getElementById('app-screen').style.backgroundImage = `url('${step.image}')`;
+      
+      // Atualiza Foco Iluminado
+      const spot = document.getElementById('spotlight');
+      spot.style.top = step.spotlight.top;
+      spot.style.left = step.spotlight.left;
+      spot.style.width = step.spotlight.width;
+      spot.style.height = step.spotlight.height;
+
+      // Atualiza Texto do Balão
+      document.getElementById('step-title').innerText = step.title;
+      document.getElementById('step-desc').innerText = step.desc;
+      
+      const tt = document.getElementById('tooltip');
+      tt.style.top = step.tooltip.top;
+      tt.style.left = step.tooltip.left;
+    }
+
+    function nextStep() {
+      currentStep++;
+      if (currentStep < steps.length) {
+        renderStep();
+      } else {
+        alert('Tutorial concluído!');
+        currentStep = 0;
+        renderStep();
+      }
+    }
+
+    // Inicializa o tutorial
+    renderStep();
+  </script>
+</body>
+</html>
