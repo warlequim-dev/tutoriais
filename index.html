@@ -13,8 +13,7 @@
       --text-muted: #9ca3af;
       --accent: #3b82f6;
       --accent-glow: rgba(59, 130, 246, 0.3);
-      
-      /* Variáveis de Cores Vibrantes (Dopamina Visual) */
+
       --purple-deep: #4318ff;
       --magenta: #c6168d;
       --orange: #f58220;
@@ -24,7 +23,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-    
+
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
@@ -36,15 +35,9 @@
       overflow-x: hidden;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1200px;
-    }
+    .container { width: 100%; max-width: 1200px; }
 
-    header {
-      margin-bottom: 40px;
-      text-align: center;
-    }
+    header { margin-bottom: 40px; text-align: center; }
 
     header h1 {
       font-size: 2.5rem;
@@ -55,10 +48,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    header p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
+    header p { color: var(--text-muted); font-size: 1.1rem; }
 
     /* ============ VISUAL 3D ESTILIZADO COM ÓRBITA ============ */
     .cover-visual {
@@ -87,7 +77,6 @@
       z-index: 3;
     }
 
-    /* Esfera 3D Central Estilizada */
     .esfera-3d {
       width: 70px;
       height: 70px;
@@ -98,97 +87,61 @@
     }
 
     .cover-visual .ring-a {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
+      position: absolute; width: 100%; height: 100%; border-radius: 50%;
       border: 1px dashed rgba(253, 185, 19, 0.35);
       animation: spin 20s linear infinite;
     }
 
     .cover-visual .ring-b {
-      position: absolute;
-      width: 82%;
-      height: 82%;
-      border-radius: 50%;
+      position: absolute; width: 82%; height: 82%; border-radius: 50%;
       border: 1px solid rgba(0, 182, 190, 0.3);
       animation: spinRev 15s linear infinite;
     }
 
-    .cover-visual .orbiter {
-      position: absolute;
-      width: 0;
-      height: 0;
-      left: 50%;
-      top: 50%;
-      z-index: 4;
-    }
+    .cover-visual .orbiter { position: absolute; width: 0; height: 0; left: 50%; top: 50%; z-index: 4; }
 
     .cover-visual .orbiter i {
-      position: absolute;
-      display: block;
-      border-radius: 50%;
-      background: var(--yellow);
+      position: absolute; display: block; border-radius: 50%; background: var(--yellow);
       box-shadow: 0 0 12px var(--yellow), 0 0 20px var(--orange);
       animation: orbit linear infinite;
     }
 
-    .cover-visual .o1 {
-      width: 14px;
-      height: 14px;
-      --r: 110px;
-      animation-duration: 8s !important;
-    }
-
+    .cover-visual .o1 { width: 14px; height: 14px; --r: 110px; animation-duration: 8s !important; }
     .cover-visual .o2 {
-      width: 8px;
-      height: 8px;
-      --r: 80px;
-      background: var(--adan);
+      width: 8px; height: 8px; --r: 80px; background: var(--adan);
       box-shadow: 0 0 10px var(--adan);
-      animation: orbitRev linear infinite;
-      animation-duration: 6s !important;
+      animation: orbitRev linear infinite; animation-duration: 6s !important;
     }
 
-    /* Animações */
-    @keyframes floaty {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-10px) scale(1.02); }
+    @keyframes floaty { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.02); } }
+    @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes spinRev { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+    @keyframes orbit { 0% { transform: rotate(0deg) translateY(var(--r)) rotate(0deg); } 100% { transform: rotate(360deg) translateY(var(--r)) rotate(-360deg); } }
+    @keyframes orbitRev { 0% { transform: rotate(360deg) translateY(var(--r)) rotate(-360deg); } 100% { transform: rotate(0deg) translateY(var(--r)) rotate(0deg); } }
+
+    /* ============ Seções do Dashboard ============ */
+    .section-block { margin-bottom: 44px; }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--card-border);
     }
 
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
+    .section-heading h2 { font-size: 1.3rem; color: #fff; }
+    .section-heading span { color: var(--text-muted); font-size: 0.9rem; }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes spinRev {
-      0% { transform: rotate(360deg); }
-      100% { transform: rotate(0deg); }
-    }
-
-    @keyframes orbit {
-      0% { transform: rotate(0deg) translateY(var(--r)) rotate(0deg); }
-      100% { transform: rotate(360deg) translateY(var(--r)) rotate(-360deg); }
-    }
-
-    @keyframes orbitRev {
-      0% { transform: rotate(360deg) translateY(var(--r)) rotate(-360deg); }
-      100% { transform: rotate(0deg) translateY(var(--r)) rotate(0deg); }
-    }
-
-    /* Grid do Dashboard */
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
     }
 
-    /* Cards com Glassmorphism e UX aprimorada */
+    /* Cards com Glassmorphism */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -212,175 +165,145 @@
     }
 
     .card-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
+      width: 48px; height: 48px; border-radius: 12px;
       background: rgba(198, 22, 141, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       color: var(--magenta);
       margin-bottom: 20px;
     }
 
-    .card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 10px;
-      color: #fff;
+    .card h3 { font-size: 1.25rem; margin-bottom: 10px; color: #fff; }
+
+    /* Selo "ganho de tempo" — o gancho de cada card */
+    .card .time-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--yellow);
+      background: rgba(253, 185, 19, 0.12);
+      border: 1px solid rgba(253, 185, 19, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      width: fit-content;
     }
 
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
+    .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
 
-    .card-footer {
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--orange);
-    }
-
-    .card-footer span {
-      transition: transform 0.2s ease;
-      margin-left: 6px;
-    }
-
-    .card:hover .card-footer span {
-      transform: translateX(4px);
-    }
-
-    /* Container Dinâmico onde o tutorial HTML será carregado */
-    #view-container {
-      width: 100%;
-      margin-top: 30px;
-      display: none; /* Inicialmente oculto até clicar */
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--card-border);
-      height: 650px;
-      position: relative;
-    }
-
-    .back-btn {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-bottom: 20px;
-      display: none;
-      transition: background 0.2s;
-    }
-
-    .back-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
+    .card-footer { display: flex; align-items: center; font-weight: 600; font-size: 0.9rem; color: var(--orange); }
+    .card-footer span { transition: transform 0.2s ease; margin-left: 6px; }
+    .card:hover .card-footer span { transform: translateX(4px); }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <button id="btn-back" class="back-btn" onclick="voltarDashboard()">&larr; Voltar ao Dashboard</button>
-    
     <header id="main-header">
-      <!-- Bloco Visual Estilizado 3D com Órbita -->
       <div class="cover-visual">
         <div class="ring-a"></div>
         <div class="ring-b"></div>
         <div class="orbiter"><i class="o1"></i></div>
         <div class="orbiter"><i class="o2"></i></div>
-        <div class="glow-plate">
-          <div class="esfera-3d"></div>
-        </div>
+        <div class="glow-plate"><div class="esfera-3d"></div></div>
       </div>
 
       <h1>Portal de Ferramentas IA</h1>
-      <p>Selecione um módulo interativo para iniciar sua jornada de aprendizado.</p>
+      <p>Aprenda, em poucos minutos, como a inteligência artificial pode fazer parte do seu trabalho todos os dias.</p>
     </header>
 
-    <!-- Dashboard Principal -->
-    <section class="dashboard-grid" id="dashboard-section">
-      
-      <!-- Card: Conversar com Documentos (Dispara o Tutorial) -->
-      <div class="card" onclick="abrirTutorial()">
-        <div>
-          <div class="card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          </div>
-          <h3>Conversar com Documentos</h3>
-          <p>Aprenda a utilizar a inteligência artificial para ler, resumir e extração de dados diretamente de arquivos PDF e textos.</p>
-        </div>
-        <div class="card-footer">
-          Iniciar Tutorial <span>&rarr;</span>
-        </div>
+    <!-- ===================== SEÇÃO: Converse com a IA ===================== -->
+    <section class="section-block">
+      <div class="section-heading">
+        <h2>Converse com a IA</h2>
+        <span>Primeiros passos</span>
       </div>
+      <div class="dashboard-grid">
 
-      <div class="card" onclick="abrirAgente()">
-        <div>
-          <div class="card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        <div class="card" onclick="window.location.href='tutorial_notebooklm-passo1.html'">
+          <div>
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3>Conversar com Documentos</h3>
+            <p>Aprenda a usar a IA para ler, resumir e extrair informações direto de arquivos PDF e textos.</p>
           </div>
-          <h3>Como Pedir Para Inteligência Artificial</h3>
-          <p>Diga o que você quer e nosso agente te entregará o texto para enviar ao Copilot.</p>
+          <div class="card-footer">Iniciar Tutorial <span>&rarr;</span></div>
         </div>
-        <div class="card-footer">
-          Explorar Prompter <span>&rarr;</span>
-        </div>
-      </div>
 
-      <!-- Outros cards de exemplo -->
-      <div class="card" onclick="alert('Módulo em breve!')">
-        <div>
-          <div class="card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        <div class="card" onclick="window.location.href='https://prompter-warlequim.streamlit.app/'">
+          <div>
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3>Como Pedir Para a IA</h3>
+            <p>Não sabe como escrever o pedido? Diga o que você quer em poucas palavras e o Prompter monta um texto (prompt) mais completo e profissional para você usar no Copilot.</p>
           </div>
-          <h3>Painel Executivo M365</h3>
-          <p>Gerenciamento de rotinas administrativas integradas com automação de planilhas e relatórios.</p>
+          <div class="card-footer">Abrir Prompter <span>&rarr;</span></div>
         </div>
-        <div class="card-footer">
-          Explorar <span>&rarr;</span>
-        </div>
-      </div>
 
+      </div>
     </section>
 
-    <!-- Container onde o código do tutorial será injetado ou aberto -->
-    <div id="view-container">
-      <iframe id="tutorial-frame" src="tutorial_notebooklm.html" style="width:100%; height:100%; border:none;"></iframe>
-    </div>
+    <!-- ===================== SEÇÃO: Copilot no dia a dia ===================== -->
+    <section class="section-block">
+      <div class="section-heading">
+        <h2>Copilot no dia a dia</h2>
+        <span>Use a IA que já acompanha o M365</span>
+      </div>
+      <div class="dashboard-grid">
+
+        <div class="card" onclick="window.location.href='engine.html?config=configs/copilot-carta-indeferimento.json'">
+          <div>
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            </div>
+            <div class="time-badge">de 2h para 5 minutos</div>
+            <h3>Carta de Deferimento/Indeferimento</h3>
+            <p>Gere o rascunho de uma carta formal a partir dos dados do processo, sem começar do zero.</p>
+          </div>
+          <div class="card-footer">Iniciar Tutorial <span>&rarr;</span></div>
+        </div>
+
+        <div class="card" onclick="window.location.href='engine.html?config=configs/copilot-planilha-fiscal.json'">
+          <div>
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <div class="time-badge">sem decorar fórmulas</div>
+            <h3>Cálculos em Planilhas Fiscais</h3>
+            <p>Peça o cálculo em português normal e deixe o Copilot montar a fórmula e resumir os dados pra você.</p>
+          </div>
+          <div class="card-footer">Iniciar Tutorial <span>&rarr;</span></div>
+        </div>
+
+        <div class="card" onclick="window.open('https://m365.cloud.microsoft/chat/?titleId=P_9946b656-2c96-e9fa-4ce4-8ad96c5b789b', '_blank')">
+          <div>
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <div class="time-badge">resposta na hora</div>
+            <h3>Consultar Leis e Jurisprudência</h3>
+            <p>Já existe um agente pronto no Copilot especializado em jurisprudência. Clique para abrir e perguntar direto sobre leis municipais ou qualquer outra legislação.</p>
+          </div>
+          <div class="card-footer">Abrir Agente <span>&rarr;</span></div>
+        </div>
+
+        <div class="card" onclick="alert('Módulo em breve!')">
+          <div>
+            <div class="card-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            </div>
+            <div class="time-badge">em breve</div>
+            <h3>Painel Executivo M365</h3>
+            <p>Gerenciamento de rotinas administrativas integradas com automação de planilhas e relatórios.</p>
+          </div>
+          <div class="card-footer">Explorar <span>&rarr;</span></div>
+        </div>
+
+      </div>
+    </section>
 
   </div>
-
-  <script>
-    function abrirTutorial() {
-      // Oculta o header e o grid do dashboard
-      //document.getElementById('main-header').style.display = 'none';
-      //document.getElementById('dashboard-section').style.display = 'none';
-      //
-      //// Mostra o botão de voltar e o container do tutorial
-      //document.getElementById('btn-back').style.display = 'inline-block';
-      //document.getElementById('view-container').style.display = 'block';
-      window.location.href = 'tutorial_notebooklm-passo1.html';
-    }
-    function abrirAgente() {
-        window.location.href = 'https://prompter-warlequim.streamlit.app/'
-    }
-    function voltarDashboard() {
-      // Restaura a visão padrão do dashboard
-      document.getElementById('main-header').style.display = 'block';
-      document.getElementById('dashboard-section').style.display = 'grid';
-      
-      // Oculta o tutorial e o botão de voltar
-      document.getElementById('btn-back').style.display = 'none';
-      document.getElementById('view-container').style.display = 'none';
-    }
-  </script>
 
 </body>
 </html>

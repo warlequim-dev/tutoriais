@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorial Interativo</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+
+    body, html { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+    /* Container da Imagem de Fundo */
+    .screen-container {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Foco Iluminado (Spotlight) */
+    .spotlight {
+      position: absolute;
+      border-radius: 50%; /* padrão para botões/ícones; sobrescrito via JS quando o passo define "radius" */
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45), 0 0 25px 5px #fff;
+      z-index: 20;
+      transition: all 0.4s ease;
+      pointer-events: none;
+    }
+
+    /* Balão do Tutorial (Tooltip) */
+    .tooltip {
+      position: absolute;
+      z-index: 30;
+      background: #ffffff;
+      color: #1a1a1a;
+      padding: 18px 22px;
+      border-radius: 12px;
+      max-width: 340px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .step-counter {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .tooltip h3 { margin-bottom: 8px; font-size: 18px; color: #0f52ba; }
+    .tooltip p { font-size: 14px; line-height: 1.4; margin-bottom: 15px; }
+
+    .tooltip-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-next {
+      background: #0f52ba;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-back {
+      background: transparent;
+      color: #0f52ba;
+      border: 1px solid #0f52ba;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Botão de destaque para o Prompter - só aparece quando o passo faz sentido */
+    .btn-prompt {
+      background: linear-gradient(135deg, #4318ff 0%, #c6168d 50%, #f58220 100%);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    #loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      font-family: sans-serif;
+      z-index: 50;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loading">Carregando tutorial...</div>
+
+  <div id="app-screen" class="screen-container"></div>
+
+  <div id="spotlight" class="spotlight"></div>
+
+  <div id="tooltip" class="tooltip" style="display:none;">
+    <div class="step-counter" id="step-counter"></div>
+    <h3 id="step-title"></h3>
+    <p id="step-desc"></p>
+    <div class="tooltip-actions">
+      <button class="btn-back" id="btn-back" onclick="prevStep()" style="display:none;">&larr; Voltar</button>
+      <div style="display:flex; gap:8px; margin-left:auto;">
+        <button class="btn-prompt" id="btn-prompt" style="display:none;" onclick="abrirPrompter()">✨ Prompt profissional</button>
+        <button class="btn-next" onclick="nextStep()">Entendi / Próximo</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // Motor genérico de tutorial. Cada tutorial é apenas um JSON
+    // carregado via ?config=configs/nome-do-tutorial.json
+    // ============================================================
+
+    let steps = [];
+    let promptUrl = 'https://prompter-warlequim.streamlit.app/';
+    let backUrl = '/tutoriais';
+    let currentStep = 0;
+
+    function getConfigParam() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('config') || 'configs/notebooklm.json';
+    }
+
+    async function init() {
+      try {
+        const res = await fetch(getConfigParam());
+        if (!res.ok) throw new Error('Config não encontrada');
+        const data = await res.json();
+
+        steps = data.steps;
+        if (data.promptUrl) promptUrl = data.promptUrl;
+        if (data.backUrl) backUrl = data.backUrl;
+        if (data.title) document.title = data.title;
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('tooltip').style.display = 'block';
+        renderStep();
+      } catch (e) {
+        document.getElementById('loading').innerText =
+          'Não foi possível carregar este tutorial. Avise o suporte.';
+        console.error(e);
+      }
+    }
+
+    function renderStep() {
+      const step = steps[currentStep];
+
+      // Atualiza Imagem de Fundo
+      document.getElementById('app-screen').style.backgroundImage = `url('${step.image}')`;
+
+      // Atualiza Foco Iluminado
+      const spot = document.getElementById('spotlight');
+      spot.style.top = step.spotlight.top;
+      spot.style.left = step.spotlight.left;
+      spot.style.width = step.spotlight.width;
+      spot.style.height = step.spotlight.height;
+      // Campos compridos ou blocos de conteúdo usam "radius" próprio no JSON (pílula ou
+      // retângulo arredondado); sem isso, o padrão é círculo (50%) — bom pra botões/ícones,
+      // mas vira uma "bola esticada" feia em elementos compridos.
+      spot.style.borderRadius = step.spotlight.radius || '50%';
+
+      // Atualiza Texto do Balão
+      document.getElementById('step-counter').innerText = `Passo ${currentStep + 1} de ${steps.length}`;
+      document.getElementById('step-title').innerText = step.title;
+      document.getElementById('step-desc').innerText = step.desc;
+
+      const tt = document.getElementById('tooltip');
+      tt.style.top = step.tooltip.top;
+      tt.style.left = step.tooltip.left;
+
+      // Botão Voltar só aparece a partir do 2º passo
+      document.getElementById('btn-back').style.display = currentStep > 0 ? 'inline-block' : 'none';
+
+      // Botão do Prompter só aparece nos passos marcados no JSON (showPromptLink: true)
+      document.getElementById('btn-prompt').style.display = step.showPromptLink ? 'inline-block' : 'none';
+    }
+
+    function nextStep() {
+      currentStep++;
+      if (currentStep < steps.length) {
+        renderStep();
+      } else {
+        Swal.fire({
+          title: 'Tutorial Concluído!',
+          text: 'Quer um prompt pronto e mais profissional para essa tarefa?',
+          icon: 'success',
+          showDenyButton: true,
+          showCancelButton: true,
+          confirmButtonText: 'Voltar ao Portal',
+          denyButtonText: '✨ Usar o Prompter',
+          cancelButtonText: 'Rever Tutorial'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = backUrl;
+          } else if (result.isDenied) {
+            window.open(promptUrl, '_blank');
+            currentStep = 0;
+            renderStep();
+          } else {
+            currentStep = 0;
+            renderStep();
+          }
+        });
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    function abrirPrompter() {
+      window.open(promptUrl, '_blank');
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+  "title": "Tutorial - Entender Leis Municipais com o Copilot",
+  "promptUrl": "https://prompter-warlequim.streamlit.app/",
+  "backUrl": "/tutoriais",
+  "steps": [
+    {
+      "image": "img/copilot-lei-passo1.png",
+      "title": "Passo 1: Abrir o Copilot Chat",
+      "desc": "Abra o Copilot pelo menu ou navegador (copilot.microsoft.com com login corporativo).",
+      "spotlight": {
+        "top": "10%",
+        "left": "85%",
+        "width": "70px",
+        "height": "40px"
+      },
+      "tooltip": {
+        "top": "18%",
+        "left": "55%"
+      }
+    },
+    {
+      "image": "img/copilot-lei-passo2.png",
+      "title": "Passo 2: Colar o texto da lei",
+      "desc": "Copie o trecho da lei municipal que você precisa entender e cole no campo de texto do Copilot.",
+      "spotlight": {
+        "top": "70%",
+        "left": "20%",
+        "width": "500px",
+        "height": "60px",
+        "radius": "30px"
+      },
+      "tooltip": {
+        "top": "45%",
+        "left": "40%"
+      }
+    },
+    {
+      "image": "img/copilot-lei-passo3.png",
+      "title": "Passo 3: Pedir um resumo simples",
+      "desc": "Escreva algo como: 'Resuma esse artigo em linguagem simples e liste os prazos e requisitos mencionados.'",
+      "spotlight": {
+        "top": "70%",
+        "left": "20%",
+        "width": "500px",
+        "height": "60px",
+        "radius": "30px"
+      },
+      "tooltip": {
+        "top": "45%",
+        "left": "40%"
+      },
+      "showPromptLink": true
+    },
+    {
+      "image": "img/copilot-lei-passo4.png",
+      "title": "Passo 4: Ler e conferir",
+      "desc": "O Copilot te dá um resumo rápido pra entender do que se trata. Para aplicar num caso real, sempre confira o texto oficial da lei.",
+      "spotlight": {
+        "top": "20%",
+        "left": "20%",
+        "width": "600px",
+        "height": "300px",
+        "radius": "20px"
+      },
+      "tooltip": {
+        "top": "10%",
+        "left": "62%"
+      }
+    }
+  ]
+}

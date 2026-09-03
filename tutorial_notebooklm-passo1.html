@@ -31,7 +31,7 @@
     /* Foco Iluminado (Spotlight) */
     .spotlight {
       position: absolute;
-      border-radius: 50%;
+      border-radius: 50%; /* padrão para botões/ícones; campos compridos sobrescrevem via JS */
       box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45), 0 0 25px 5px #fff;
       z-index: 20;
       transition: all 0.4s ease;
@@ -102,7 +102,8 @@
         title: 'Passo 3: Perguntar aos Documentos',
         desc: 'Clique no campo para digitar sua pergunta',
         // Posição percentual do botão Enviar Arquivos na Imagem 2
-        spotlight: { top: '89.1%', left: '28.5%', width: '650px', height: '65px' },
+        // radius em pílula (metade da altura) em vez de 50%, pra não virar uma bola esticada num campo comprido
+        spotlight: { top: '89.1%', left: '28.5%', width: '650px', height: '65px', radius: '32px' },
         tooltip: { top: '67%', left: '52%' }
       },
       {
@@ -129,6 +130,9 @@
       spot.style.left = step.spotlight.left;
       spot.style.width = step.spotlight.width;
       spot.style.height = step.spotlight.height;
+      // Campos compridos/blocos retangulares usam um radius próprio (pílula ou retângulo arredondado);
+      // botões e ícones pequenos continuam com 50% (círculo), que é o padrão.
+      spot.style.borderRadius = step.spotlight.radius || '50%';
 
       // Atualiza Texto do Balão
       document.getElementById('step-title').innerText = step.title;
@@ -146,7 +150,7 @@
       } else {
         Swal.fire({
         title: 'Tutorial Concluído!',
-        text: 'Clique Aqui Para Voltar à Página Inicial',
+        text: 'Clique Aqui Para Voltar à Página Inicial ou https://notebook.google.com/',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Voltar',

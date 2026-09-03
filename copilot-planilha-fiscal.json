@@ -1,0 +1,72 @@
+{
+  "title": "Tutorial - Copilot em Planilhas Fiscais",
+  "promptUrl": "https://prompter-warlequim.streamlit.app/",
+  "backUrl": "/tutoriais",
+  "steps": [
+    {
+      "image": "img/copilot-planilha-passo1.png",
+      "title": "Passo 1: Abrir o Copilot no Excel",
+      "desc": "Com sua planilha aberta, clique no ícone do Copilot na barra de ferramentas.",
+      "spotlight": {
+        "top": "10%",
+        "left": "85%",
+        "width": "70px",
+        "height": "40px"
+      },
+      "tooltip": {
+        "top": "18%",
+        "left": "55%"
+      }
+    },
+    {
+      "image": "img/copilot-planilha-passo2.png",
+      "title": "Passo 2: Pedir um cálculo em português",
+      "desc": "Descreva o cálculo que você precisa, sem se preocupar em saber o nome da fórmula. Ex: 'Calcule na coluna E a multa de 2% ao mês sobre o valor da coluna C, considerando os dias de atraso da coluna D.'",
+      "spotlight": {
+        "top": "70%",
+        "left": "20%",
+        "width": "500px",
+        "height": "60px",
+        "radius": "30px"
+      },
+      "tooltip": {
+        "top": "45%",
+        "left": "40%"
+      },
+      "showPromptLink": true
+    },
+    {
+      "image": "img/copilot-planilha-passo3.png",
+      "title": "Passo 3: Conferir o resultado",
+      "desc": "O Copilot preenche a fórmula pra você. Confira algumas linhas pra garantir que o cálculo bate com o esperado.",
+      "spotlight": {
+        "top": "20%",
+        "left": "20%",
+        "width": "600px",
+        "height": "300px",
+        "radius": "20px"
+      },
+      "tooltip": {
+        "top": "10%",
+        "left": "62%"
+      }
+    },
+    {
+      "image": "img/copilot-planilha-passo4.png",
+      "title": "Passo 4: Pedir um resumo da planilha",
+      "desc": "Você também pode pedir, por exemplo: 'Quais lançamentos estão com valor acima de R$ 5.000?' — o Copilot mostra o resumo sem você precisar filtrar manualmente.",
+      "spotlight": {
+        "top": "70%",
+        "left": "20%",
+        "width": "500px",
+        "height": "60px",
+        "radius": "30px"
+      },
+      "tooltip": {
+        "top": "45%",
+        "left": "40%"
+      },
+      "showPromptLink": true
+    }
+  ]
+}
