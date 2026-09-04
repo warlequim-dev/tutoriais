@@ -78,6 +78,27 @@
   </div>
 
   <script>
+    //Se for mobile, exibe um alerta e redireciona para a página inicial
+    
+            // Expressão regular que detecta a maioria dos dispositivos móveis
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Dispara o alerta para o usuário mobile
+                Swal.fire({
+                  title: 'Tutorial Exclusivo Para Desktop!',
+                  html: 'A versão mobile estará disponível em breve!<br><br>Enquanto isso, você pode acessar o NotebookLM em seu computador para aproveitar a experiência completa. <br><br>Se você estiver em um dispositivo móvel, recomendamos que utilize um computador para acessar o tutorial completo. <br><br>Para voltar à página inicial, clique no botão abaixo. <br><br>Se você estiver em um computador, basta atualizar a página para continuar com o tutorial. <br><br>Obrigado pela compreensão!',
+                  icon: 'warning',
+                  showCancelButton: false,
+                  confirmButtonText: 'Voltar',
+                  //cancelButtonText: 'Reiniciar'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = "/tutoriais";
+                  }
+                });
+            }
+        
     // Configuração dos Passos
     // Obs: Substitua os nomes dos arquivos pelas suas imagens locais
     const steps = [
